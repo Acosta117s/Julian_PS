@@ -2,10 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Julian Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="space-bg" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="shooting-stars">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="planet-wrap" aria-hidden="true">
+      <!-- Inline SVG planet: banded surface, procedural clouds, rings, and cratered moon -->
+      <svg class="planet-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" overflow="visible">
+        <defs>
+          <radialGradient id="pGrad" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#ffdca6"/>
+            <stop offset="45%" stop-color="#d29a6b"/>
+            <stop offset="100%" stop-color="#8a5b3f"/>
+          </radialGradient>
+
+          <filter id="cloudsFilter">
+            <feTurbulence baseFrequency="0.9" numOctaves="2" seed="8" result="t"/>
+            <feDisplacementMap in="SourceGraphic" in2="t" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+
+          <linearGradient id="ringGrad" x1="0" x2="1">
+            <stop offset="0%" stop-color="#f3d9b0" stop-opacity="0.9"/>
+            <stop offset="50%" stop-color="#c48d55" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#8f5a2f" stop-opacity="0.7"/>
+          </linearGradient>
+          <radialGradient id="specGrad" cx="30%" cy="25%">
+              <stop offset="0%" stop-color="#dfeeff" stop-opacity="0.6"/>
+              <stop offset="60%" stop-color="#dfeeff" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#dfeeff" stop-opacity="0"/>
+            </radialGradient>
+        </defs>
+
+        <!-- moon orbit group (rotates around planet center) -->
+        <g class="moon-orbit">
+          <!-- place moon at (140, -10) relative to center -->
+          <g class="moon" transform="translate(140,-10)">
+            <circle cx="0" cy="0" r="18" fill="#dfe9f6" />
+            <!-- small craters positioned relative to moon center -->
+            <circle cx="-6" cy="-4" r="3.2" fill="#c9d7e8" opacity="0.9"/>
+            <circle cx="6" cy="2" r="2.6" fill="#c1cfe0" opacity="0.95"/>
+            <circle cx="-2" cy="6" r="2.2" fill="#b9c7d8" opacity="0.9"/>
+          </g>
+        </g>
+
+        <!-- ring: moved inside planet group so it stays attached -->
+
+        <!-- planet body with banding and cloud layer -->
+          <g class="planet-core" transform="translate(110,110)">
+          <circle class="planet-body" cx="0" cy="0" r="86" fill="url(#pGrad)"/>
+          <!-- subtle bands using semi-transparent paths -->
+          <g class="bands" fill-opacity="0.12" stroke-opacity="0.06">
+            <rect x="-86" y="-46" width="172" height="12" fill="#e6b98a"/>
+            <rect x="-86" y="-28" width="172" height="10" fill="#cfa178"/>
+            <rect x="-86" y="6" width="172" height="8" fill="#b78350"/>
+            <rect x="-86" y="26" width="172" height="6" fill="#a56f3e"/>
+          </g>
+
+          <!-- cloud layer: several low-opacity cloud patches (avoids solid white blob) -->
+          <g class="clouds" filter="url(#cloudsFilter)" opacity="0.22">
+            <ellipse cx="-28" cy="-20" rx="54" ry="28" fill="#dfeeff" opacity="0.12"/>
+            <ellipse cx="12" cy="-6" rx="46" ry="22" fill="#dfeeff" opacity="0.10"/>
+            <ellipse cx="-6" cy="18" rx="38" ry="18" fill="#dfeeff" opacity="0.08"/>
+          </g>
+
+          <!-- small specular highlight to suggest lighting, not a solid white spot -->
+          <circle cx="-30" cy="-40" r="14" fill="url(#specGrad)" opacity="0.16" />
+          <!-- additional surface details: storms, spots, and subtle ridges -->
+          <g class="surface-details" opacity="0.9">
+            <path d="M-48 10c18-10 46-14 70-6" stroke="#5d3b2a" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.18"/>
+            <ellipse cx="22" cy="-4" rx="6" ry="3.2" fill="#6b3f28" opacity="0.22"/>
+            <ellipse cx="-12" cy="24" rx="8" ry="4" fill="#5b3a2a" opacity="0.18"/>
+            <path d="M-10 -10c6 6 22 8 34 6" stroke="#3f2a20" stroke-width="2" fill="none" opacity="0.12"/>
+          </g>
+
+          <!-- subtle terminator shadow -->
+          <ellipse cx="18" cy="0" rx="86" ry="86" fill="rgba(0,0,0,0.18)" transform="scale(1,0.95)"/>
+          <!-- ring (kept inside planet group) -->
+          <g class="ring-group">
+            <ellipse class="ring" cx="0" cy="0" rx="145" ry="36" fill="none" stroke="url(#ringGrad)" stroke-width="12" opacity="0.9"/>
+            <ellipse class="ring-inner" cx="0" cy="0" rx="115" ry="28" fill="none" stroke="rgba(230,238,248,0.04)" stroke-width="2" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="site-container">
   <!-- Header -->
   <header>
     <h1>Julian Portfolio</h1>
@@ -59,5 +164,6 @@
   <footer>
     <p>&copy; 2025 Student Name</p>
   </footer>
+  </div>
 </body>
 </html>
